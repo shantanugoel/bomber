@@ -1,3 +1,4 @@
+import 'package:bomber/widgets/game_grid.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -9,6 +10,7 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Find Da Bomb!'),
       ),
+      body: const GameGrid(),
     );
   }
 }
