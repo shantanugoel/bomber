@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Find Da Bomb!'),
         ),
-        body: const Center(
+        body: Center(
             child: FractionallySizedBox(
           widthFactor: 0.5,
           child: GameGrid(),
