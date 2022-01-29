@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class GameGrid extends StatefulWidget {
@@ -9,7 +11,7 @@ class GameGrid extends StatefulWidget {
 
 class _GameGridState extends State<GameGrid> {
   var grid = List<int>.filled(64, -1);
-  int bombLocation = 19;
+  int bombLocation = Random().nextInt(63);
 
   @override
   Widget build(BuildContext context) {
@@ -32,9 +34,7 @@ class _GameGridState extends State<GameGrid> {
                   },
                   child: Container(
                     padding: const EdgeInsets.all(20),
-                    color: grid[index] == -1
-                        ? Colors.blueGrey
-                        : Colors.teal.shade50,
+                    color: getColor(grid[index]),
                     child: grid[index] != -1
                         ? FittedBox(
                             fit: BoxFit.contain,
@@ -45,15 +45,28 @@ class _GameGridState extends State<GameGrid> {
   }
 
   int _handleTileClick(int index) {
+    print(bombLocation);
     print(index);
     int vertical_walk = (bombLocation ~/ 8 - index ~/ 8).abs();
     int horizontal_walk = (bombLocation % 8 - index % 8).abs();
     return vertical_walk + horizontal_walk;
   }
+
+  Color getColor(int distance) {
+    if (distance == -1) {
+      return Colors.blueGrey;
+    } else if (distance == 0) {
+      return Colors.red;
+    } else if (distance >= 1 && distance <= 3) {
+      return Colors.amber;
+    } else if (distance >= 4 && distance <= 6) {
+      return Colors.yellow;
+    } else {
+      return Colors.teal.shade50;
+    }
+  }
 }
 
 // TODO
-// Select random bomb location
 // Add help text
 // Add sharing 
-// update logic for finding distance on click
