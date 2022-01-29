@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 class GameGrid extends StatefulWidget {
-  GameGrid({Key? key}) : super(key: key);
+  const GameGrid({Key? key}) : super(key: key);
 
   @override
   State<GameGrid> createState() => _GameGridState();
@@ -45,11 +45,10 @@ class _GameGridState extends State<GameGrid> {
   }
 
   int _handleTileClick(int index) {
-    print(bombLocation);
-    print(index);
-    int vertical_walk = (bombLocation ~/ 8 - index ~/ 8).abs();
-    int horizontal_walk = (bombLocation % 8 - index % 8).abs();
-    return vertical_walk + horizontal_walk;
+    debugPrint(index.toString());
+    int verticalWalk = (bombLocation ~/ 8 - index ~/ 8).abs();
+    int horizontalWalk = (bombLocation % 8 - index % 8).abs();
+    return verticalWalk + horizontalWalk;
   }
 
   Color getColor(int distance) {
