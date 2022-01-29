@@ -7,10 +7,13 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Find Da Bomb!'),
-      ),
-      body: const GameGrid(),
-    );
+        appBar: AppBar(
+          title: const Text('Find Da Bomb!'),
+        ),
+        body: const Center(
+            child: FractionallySizedBox(
+          widthFactor: 0.5,
+          child: GameGrid(),
+        )));
   }
 }
