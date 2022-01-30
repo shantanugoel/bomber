@@ -8,7 +8,9 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Find Da Bomb!'),
+          title: const Text('BombFinda!'),
+          centerTitle: true,
+          leading: Image.asset('images/bomb.png'),
         ),
         body: const Center(
             child: FractionallySizedBox(

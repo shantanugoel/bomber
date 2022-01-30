@@ -69,3 +69,5 @@ class _GameGridState extends State<GameGrid> {
 // TODO
 // Add help text
 // Add sharing 
+// Hard mode - hide numbers
+// More intersting? add hints?
