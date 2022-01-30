@@ -12,10 +12,17 @@ class HomePage extends StatelessWidget {
           centerTitle: true,
           leading: Image.asset('images/bomb.png'),
         ),
-        body: const Center(
+        body: Center(
             child: FractionallySizedBox(
-          widthFactor: 0.5,
-          child: GameGrid(),
+          widthFactor: _getWidthFactor(context),
+          child: const GameGrid(),
         )));
+  }
+
+  double _getWidthFactor(BuildContext context) {
+    double currentFactor =
+        MediaQuery.of(context).size.height / MediaQuery.of(context).size.width;
+    currentFactor = 0.8 * (currentFactor > 1.0 ? 0.9 : currentFactor);
+    return currentFactor;
   }
 }
