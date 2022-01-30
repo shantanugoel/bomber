@@ -11,11 +11,26 @@ class GameGrid extends StatefulWidget {
 
 class _GameGridState extends State<GameGrid> {
   var grid = List<int>.filled(64, -1);
+  bool _easyMode = false;
   int bombLocation =
       Random(DateTime.now().millisecondsSinceEpoch ~/ 864000000).nextInt(63);
 
   @override
   Widget build(BuildContext context) {
+    return ListView(children: [
+      SwitchListTile(
+          title: const Text('Easy Mode?'),
+          value: _easyMode,
+          onChanged: (bool newValue) {
+            setState(() {
+              _easyMode = newValue;
+            });
+          }),
+      _getGrid(),
+    ]);
+  }
+
+  GridView _getGrid() {
     return GridView.count(
         crossAxisCount: 8,
         padding: const EdgeInsets.all(4.0),
@@ -36,7 +51,7 @@ class _GameGridState extends State<GameGrid> {
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     color: getColor(grid[index]),
-                    child: grid[index] != -1
+                    child: _easyMode && grid[index] != -1
                         ? FittedBox(
                             fit: BoxFit.contain,
                             child: Text(grid[index].toString()))
