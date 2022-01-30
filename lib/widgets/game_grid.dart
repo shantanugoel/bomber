@@ -43,6 +43,14 @@ class _GameGridState extends State<GameGrid> {
         ],
       ),
       _getGrid(),
+      FractionallySizedBox(
+        widthFactor: 0.5,
+        child: ElevatedButton(
+            onPressed: () => setState(() {
+                  resetState();
+                }),
+            child: const Text('Reset')),
+      ),
     ]);
   }
 
