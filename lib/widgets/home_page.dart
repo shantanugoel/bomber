@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('BombFinda!'),
           centerTitle: true,
-          leading: Image.asset('images/bomb.png'),
+          leading: Image.asset('assets/images/bomb.png'),
         ),
         body: Center(
           child: FractionallySizedBox(

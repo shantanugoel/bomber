@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class GameGrid extends StatefulWidget {
   const GameGrid({Key? key}) : super(key: key);
@@ -49,11 +51,19 @@ class _GameGridState extends State<GameGrid> {
         context: context,
         builder: (BuildContext context) => AlertDialog(
               title: const Text('Help'),
-              content: const Text('''
+              content: RichText(
+                  text: TextSpan(text: '''
  • Your objective is to find the bomb hiding behind a tile
  • Clicking on a tile gives you an indication of how close you are by changing color. In terms of decreasing distance -> Blue, Yellow, Orange. Red = Bomb found.
  • Switch on easy mode to also see the exact distance from the bomb location on a clicked tile
-                '''),
+ • Comments/Feedback: ''', children: [
+                TextSpan(
+                    text: '@shantanugoel',
+                    style: const TextStyle(color: Colors.blue),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap =
+                          () => launch('https://twitter.com/shantanugoel'))
+              ])),
               actions: [
                 TextButton(
                     onPressed: () => Navigator.pop(context),
