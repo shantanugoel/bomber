@@ -12,8 +12,8 @@ class GameGrid extends StatefulWidget {
 class _GameGridState extends State<GameGrid> {
   var grid = List<int>.filled(64, -1);
   bool _easyMode = false;
-  int bombLocation =
-      Random(DateTime.now().millisecondsSinceEpoch ~/ 864000000).nextInt(63);
+  int bombLocation = Random().nextInt(64);
+  // Random(DateTime.now().millisecondsSinceEpoch ~/ 864000000).nextInt(64);
 
   @override
   Widget build(BuildContext context) {
