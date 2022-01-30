@@ -13,10 +13,9 @@ class HomePage extends StatelessWidget {
           leading: Image.asset('images/bomb.png'),
         ),
         body: Center(
-            child: FractionallySizedBox(
-          widthFactor: _getWidthFactor(context),
-          child: const GameGrid(),
-        )));
+          child: FractionallySizedBox(
+              widthFactor: _getWidthFactor(context), child: const GameGrid()),
+        ));
   }
 
   double _getWidthFactor(BuildContext context) {

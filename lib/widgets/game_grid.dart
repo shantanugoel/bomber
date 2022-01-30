@@ -18,16 +18,48 @@ class _GameGridState extends State<GameGrid> {
   @override
   Widget build(BuildContext context) {
     return ListView(children: [
-      SwitchListTile(
-          title: const Text('Easy Mode?'),
-          value: _easyMode,
-          onChanged: (bool newValue) {
-            setState(() {
-              _easyMode = newValue;
-            });
-          }),
+      Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Expanded(
+              child: IconButton(
+                  onPressed: () {
+                    showHelp();
+                  },
+                  icon: const Icon(Icons.help))),
+          Expanded(
+            child: SwitchListTile(
+                title: const Text('Easy Mode?'),
+                value: _easyMode,
+                onChanged: (bool newValue) {
+                  setState(() {
+                    print(newValue);
+                    _easyMode = newValue;
+                  });
+                }),
+          ),
+        ],
+      ),
       _getGrid(),
     ]);
+  }
+
+  void showHelp() {
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: const Text('Help'),
+              content: const Text('''
+ • Your objective is to find the bomb hiding behind a tile
+ • Clicking on a tile gives you an indication of how close you are by changing color. In terms of decreasing distance -> Blue, Yellow, Orange. Red = Bomb found.
+ • Switch on easy mode to also see the exact distance from the bomb location on a clicked tile
+                '''),
+              actions: [
+                TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('OK'))
+              ],
+            ));
   }
 
   GridView _getGrid() {
@@ -51,7 +83,7 @@ class _GameGridState extends State<GameGrid> {
                   child: Container(
                     padding: const EdgeInsets.all(20),
                     color: getColor(grid[index]),
-                    child: _easyMode && grid[index] != -1
+                    child: _easyMode && (grid[index] != -1)
                         ? FittedBox(
                             fit: BoxFit.contain,
                             child: Text(grid[index].toString()))
@@ -61,7 +93,6 @@ class _GameGridState extends State<GameGrid> {
   }
 
   int _handleTileClick(int index) {
-    debugPrint(index.toString());
     int verticalWalk = (bombLocation ~/ 8 - index ~/ 8).abs();
     int horizontalWalk = (bombLocation % 8 - index % 8).abs();
     return verticalWalk + horizontalWalk;
@@ -73,7 +104,7 @@ class _GameGridState extends State<GameGrid> {
     } else if (distance == 0) {
       return Colors.red;
     } else if (distance >= 1 && distance <= 3) {
-      return Colors.amber;
+      return Colors.orange;
     } else if (distance >= 4 && distance <= 6) {
       return Colors.yellow;
     } else {
@@ -81,9 +112,3 @@ class _GameGridState extends State<GameGrid> {
     }
   }
 }
-
-// TODO
-// Add help text
-// Add sharing 
-// Hard mode - hide numbers
-// More intersting? add hints?
