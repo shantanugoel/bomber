@@ -14,6 +14,7 @@ class _GameGridState extends State<GameGrid> {
   bool _easyMode = false;
   int bombLocation = Random().nextInt(64);
   // Random(DateTime.now().millisecondsSinceEpoch ~/ 864000000).nextInt(64);
+  int numClicks = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,6 @@ class _GameGridState extends State<GameGrid> {
                 value: _easyMode,
                 onChanged: (bool newValue) {
                   setState(() {
-                    print(newValue);
                     _easyMode = newValue;
                   });
                 }),
@@ -76,8 +76,29 @@ class _GameGridState extends State<GameGrid> {
                   onTap: () {
                     if (grid[index] == -1) {
                       setState(() {
+                        numClicks += 1;
                         grid[index] = _handleTileClick(index);
                       });
+                      if (index == bombLocation) {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Found the Bomb!'),
+                                  content: Text('Number of clicks: ' +
+                                      numClicks.toString()),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () => Navigator.pop(context),
+                                        child: const Text('OK')),
+                                    TextButton(
+                                        onPressed: () => setState(() {
+                                              resetState();
+                                              Navigator.pop(context);
+                                            }),
+                                        child: const Text('Play again!'))
+                                  ],
+                                ));
+                      }
                     }
                   },
                   child: Container(
@@ -90,6 +111,14 @@ class _GameGridState extends State<GameGrid> {
                         : null,
                   ),
                 )));
+  }
+
+  void resetState() {
+    numClicks = 0;
+    bombLocation = Random().nextInt(64);
+    for (int i = 0; i < grid.length; ++i) {
+      grid[i] = -1;
+    }
   }
 
   int _handleTileClick(int index) {
