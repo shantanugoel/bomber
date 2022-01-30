@@ -87,7 +87,6 @@ class _GameGridState extends State<GameGrid> {
         crossAxisSpacing: 4,
         mainAxisSpacing: 4,
         shrinkWrap: true,
-        // childAspectRatio: 8.0 / 4.0,
         children: List.generate(
             64,
             (index) => InkWell(
@@ -120,7 +119,6 @@ class _GameGridState extends State<GameGrid> {
                     }
                   },
                   child: Container(
-                    padding: const EdgeInsets.all(20),
                     color: getColor(grid[index]),
                     child: _easyMode && (grid[index] != -1)
                         ? FittedBox(
